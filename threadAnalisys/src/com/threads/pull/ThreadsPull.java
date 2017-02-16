@@ -12,45 +12,32 @@ import static com.threads.process.IProcessThread.*;
  */
 public class ThreadsPull {
 
-    public List<ProcessThread> initThreadsPull(int pullsCount) {
+    public List<ProcessThread> initThreadsPull(int countOfThreads) {
         List<Object> syncObjects = new ArrayList<>();
         syncObjects.add(PROCESS_LOCK_1);
         syncObjects.add(PROCESS_LOCK_2);
         syncObjects.add(PROCESS_LOCK_3);
         syncObjects.add(PROCESS_LOCK_4);
         List<ProcessThread> pullThreads = new ArrayList<>();
-
-        // pullThreads.add(new ProcessThread(PROCESS_LOCK_1, PROCESS_LOCK_2));
-        // pullThreads.add(new ProcessThread(PROCESS_LOCK_1, PROCESS_LOCK_2));
-        if (pullsCount > syncObjects.size()) {
-            System.out.println("only 4 threads can be created");
+        if (countOfThreads > syncObjects.size()) {
+            System.out.println("only" + syncObjects.size() + " threads can be created");
         } else {
-            //   int j=0;
-            //  int k =3;
-            int j = 0;
-            int k = 1;
-            //   pullThreads.add(new ProcessThread(PROCESS_LOCK_1, PROCESS_LOCK_2));
-            //  pullThreads.add(new ProcessThread(PROCESS_LOCK_2, PROCESS_LOCK_1));
-            for (int i = 0; i <= pullsCount; i++) {
-
-                pullThreads.add(new ProcessThread(syncObjects.get(j), syncObjects.get(k)));
-                j = 1;
-                k = 0;
-                //j++;
-                // --k;
+            for (int i = 0; i <= countOfThreads; i++) {
+                pullThreads.add(new ProcessThread(syncObjects.get(i), syncObjects.get(getIndexForThread(countOfThreads, i))));
             }
-
-
         }
-        return getFourThreadsDeadLock(pullThreads);
+        return pullThreads;
     }
 
-    public  List<ProcessThread>  getFourThreadsDeadLock(List<ProcessThread> pullThreads) {
-        pullThreads.add(new ProcessThread(PROCESS_LOCK_1, PROCESS_LOCK_2));
-        pullThreads.add(new ProcessThread(PROCESS_LOCK_2, PROCESS_LOCK_3));
-        pullThreads.add(new ProcessThread(PROCESS_LOCK_3, PROCESS_LOCK_4));
-        pullThreads.add(new ProcessThread(PROCESS_LOCK_4, PROCESS_LOCK_1));
-
-        return pullThreads;
+    /*get index for second synchronized block*/
+    public int getIndexForThread(int threadCount, int index) {
+        index = ++index;
+        if (index > threadCount) {
+            index = index - threadCount;
+            if (threadCount == 1) {
+                index = 0;
+            }
+        }
+        return index;
     }
 }
