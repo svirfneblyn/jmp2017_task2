@@ -10,7 +10,7 @@ import java.util.List;
 public class ThreadsManager {
 
     public void doThreadLogic(List<ProcessThread> pullThreads) {
-        int i=0;
+        int i = 0;
         for (ProcessThread thread : pullThreads) {
             thread.setName("THREAD_" + i);
             thread.start();

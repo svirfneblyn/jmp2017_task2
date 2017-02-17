@@ -9,10 +9,9 @@
             <param name="ConversionPattern" value="%5p [%-30t] - %m%n"/>
         </layout>
     </appender>
-
     <appender name="Info_ROLLING"
               class="org.apache.log4j.DailyRollingFileAppender">
-        <param name="File" value="d:\tmp\log\threads_warn.log"/>
+        <param name="File" value="d:/tmp/log/deadlocks_info.log"/>
         <param name="Threshold" value="INFO"/>
         <param name="datePattern" value="yyyy-MM-dd-HH"/>
         <layout class="org.apache.log4j.PatternLayout">
@@ -24,12 +23,26 @@
             <param name="LevelMin" value="INFO"/>
         </filter>
     </appender>
+    <appender name="ErrorFatal_ROLLING"
+              class="org.apache.log4j.DailyRollingFileAppender">
+        <param name="File" value="d:/tmp/log/deadlocks_error.log"/>
+        <param name="Threshold" value="ERROR"/>
+        <param name="datePattern" value="yyyy-MM-dd-HH"/>
+        <layout class="org.apache.log4j.PatternLayout">
+            <param name="ConversionPattern"
+                   value="%d %5p [%-30t] %c (%F:%L) - %m%n"/>
+        </layout>
+        <filter class="org.apache.log4j.varia.LevelRangeFilter">
+            <param name="LevelMax" value="OFF"/>
+            <param name="LevelMin" value="ERROR"/>
+        </filter>
+    </appender>
 
     <root>
         <priority value="ALL"/>
         <appender-ref ref="Console"/>
-        <appender-ref ref="Info_ROLLING"/>
-
+         <appender-ref ref="Info_ROLLING"/>
+         <appender-ref ref="ErrorFatal_ROLLING"/>
     </root>
 
 </log4j:configuration>

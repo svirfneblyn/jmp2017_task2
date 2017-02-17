@@ -19,8 +19,10 @@ public class ThreadsPull {
         syncObjects.add(PROCESS_LOCK_3);
         syncObjects.add(PROCESS_LOCK_4);
         List<ProcessThread> pullThreads = new ArrayList<>();
-        if (countOfThreads > syncObjects.size()) {
-            System.out.println("only" + syncObjects.size() + " threads can be created");
+        if (countOfThreads == 4) {
+            for (int i = 0; i <= countOfThreads; i++) {
+                pullThreads.add(new ProcessThread(PROCESS_LOCK_1, PROCESS_LOCK_1));
+            }
         } else {
             for (int i = 0; i <= countOfThreads; i++) {
                 pullThreads.add(new ProcessThread(syncObjects.get(i), syncObjects.get(getIndexForThread(countOfThreads, i))));
