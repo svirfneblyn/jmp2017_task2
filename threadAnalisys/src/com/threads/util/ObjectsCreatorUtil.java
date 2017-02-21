@@ -1,5 +1,7 @@
 package com.threads.util;
 
+import com.threads.mbeans.JMXDemo;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -11,9 +13,14 @@ public class ObjectsCreatorUtil {
         List<Object> millionObjectsList = new ArrayList<>();
         int count = 0;
         while (count < 1000000) {
-            millionObjectsList.add(addToList((int) Math.random()));
+       //   millionObjectsList.add(addToList((int) Math.random()));
+            new  JMXDemo();
+
             count++;
-        }return millionObjectsList;
+        }
+
+
+        return millionObjectsList;
     }
 
     private List<Object> addToList(Integer iter) {

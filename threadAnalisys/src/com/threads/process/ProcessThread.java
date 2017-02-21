@@ -18,7 +18,7 @@ public class ProcessThread extends Thread {
     }
 
     public void run() {
-        boolean flag = true;
+        boolean isSleepFlag = true;
         synchronized (syncObj_1) {
             System.out.println(this.getName() + " locked on sinchObj_1");
             logger.debug(this.getName() + " locked on 1 synchronized block ");
@@ -26,8 +26,9 @@ public class ProcessThread extends Thread {
             try {
                 Thread.sleep(100);
                 if (syncObj_1.equals(syncObj_2)) {
-                    while (flag) {
-                        logger.debug(this.getName() + " locked on 1 synchronized block and do something ");
+                    while (isSleepFlag) {
+                        Thread.sleep(Long.MAX_VALUE);
+                        isSleepFlag=false;
                     }
                 }
             } catch (InterruptedException e) {
